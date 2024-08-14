@@ -67,6 +67,12 @@ void postOrdTraver(void *root) {
 
 // implement an interface to get the max node the one with max val
 
+node *get_max(node *root) {
+  if (root->right != NULL)
+    return (get_max(root->right));
+  return (root);
+}
+
 int main(void) {
   node *root = NULL;
 
@@ -86,6 +92,11 @@ int main(void) {
 
   printf("Post order --> \n");
   postOrdTraver(root);
+
+  node *max_node = get_max(root);
+
+  printf("The node with max val is \"%p\" and its val is >>> %d <<<\n",
+         max_node, max_node->val);
 
   free_tree(root);
   return (EXIT_SUCCESS);
