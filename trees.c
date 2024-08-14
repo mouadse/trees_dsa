@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include <unistd.h>
 
 typedef struct s_node {
   int val;
@@ -43,6 +43,30 @@ void free_tree(node *root) {
   }
 }
 
+// time to implement pre order traversel
+
+void preOrderTravers(void *root) {
+  node *r = (node *)root;
+  if (!r)
+    return;
+  printf("%d\n", r->val);
+  preOrderTravers(r->left);
+  preOrderTravers(r->right);
+}
+
+// Post order traversal now
+
+void postOrdTraver(void *root) {
+  if (!root)
+    return;
+  node *r = (node *)root;
+  postOrdTraver(r->left);
+  postOrdTraver(r->right);
+  printf("%d\n", r->val);
+}
+
+// implement an interface to get the max node the one with max val
+
 int main(void) {
   node *root = NULL;
 
@@ -54,7 +78,14 @@ int main(void) {
   root = insertNode(root, 6);
   root = insertNode(root, 8);
 
+  printf("In order --> \n");
   inorder_printing(root);
+
+  printf("Pre order --> \n");
+  preOrderTravers(root);
+
+  printf("Post order --> \n");
+  postOrdTraver(root);
 
   free_tree(root);
   return (EXIT_SUCCESS);
