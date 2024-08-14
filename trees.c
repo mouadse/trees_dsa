@@ -73,6 +73,22 @@ node *get_max(node *root) {
   return (root);
 }
 
+// Lets make a function to check if a val or key is present in our tree or !
+
+int find_key(node *root, int val) {
+  if (!root)
+    return (0);
+  else if (val < root->val)
+    return (find_key(root->left, val));
+  else if (val > root->val)
+    return (find_key(root->right, val));
+  else if (val == root->val)
+    return (1);
+  else {
+    return (0);
+  }
+}
+
 int main(void) {
   node *root = NULL;
 
@@ -84,19 +100,25 @@ int main(void) {
   root = insertNode(root, 6);
   root = insertNode(root, 8);
 
-  printf("In order --> \n");
-  inorder_printing(root);
+  // printf("In order --> \n");
+  // inorder_printing(root);
+  //
+  // printf("Pre order --> \n");
+  // preOrderTravers(root);
+  //
+  // printf("Post order --> \n");
+  // postOrdTraver(root);
+  //
+  // node *max_node = get_max(root);
+  //
+  // printf("The node with max val is \"%p\" and its val is >>> %d <<<\n",
+  //        max_node, max_node->val);
 
-  printf("Pre order --> \n");
-  preOrderTravers(root);
+  if (find_key(root, 7))
+    printf("We found 7 in our tree\n");
 
-  printf("Post order --> \n");
-  postOrdTraver(root);
-
-  node *max_node = get_max(root);
-
-  printf("The node with max val is \"%p\" and its val is >>> %d <<<\n",
-         max_node, max_node->val);
+  if (!find_key(root, 1337))
+    printf("Let is not on the TREE\n");
 
   free_tree(root);
   return (EXIT_SUCCESS);
