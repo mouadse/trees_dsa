@@ -118,7 +118,7 @@ int main(void) {
     printf("We found 7 in our tree\n");
 
   if (!find_key(root, 1337))
-    printf("Let is not on the TREE\n");
+    printf("Leet is not on the TREE\n");
 
   free_tree(root);
   return (EXIT_SUCCESS);
