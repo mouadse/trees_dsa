@@ -123,5 +123,6 @@ int main() {
   postorder(root);
   printf("\nLevelorder: ");
   levelorder(root);
+  printf("\n");
   return 0;
 }
