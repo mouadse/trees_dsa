@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <threads.h>
 #include <unistd.h>
 
 typedef struct t_node {
@@ -53,7 +55,38 @@ void Inorder(node *p) {
   }
 }
 
+node *Search(int key) {
+  node *tmp = root;
+  while (tmp != NULL) {
+    if (key == tmp->data)
+      return (tmp);
+    else if (key < tmp->data)
+      tmp = tmp->lchild;
+    else {
+      tmp = tmp->rchild;
+    }
+  }
+  return ((void *)0);
+}
+
+void Destroy(node *p) {
+  if (p) {
+    Destroy(p->lchild);
+    Destroy(p->rchild);
+    free(p);
+  }
+}
+
 int main(void) {
   // code it here
+  Insert(10);
+  Insert(5);
+  Insert(20);
+  Insert(8);
+  Insert(30);
+
+  Inorder(root);
+
+  Destroy(root);
   return (EXIT_SUCCESS);
 }
