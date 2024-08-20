@@ -2,7 +2,15 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+typedef struct t_node {
+  int data;
+  struct t_node *rchild;
+  struct t_node *lchild;
+} node;
+
+node *root = NULL;
+
 int main(void) {
-  printf("Hello World!!!\n");
+  // code it here
   return (EXIT_SUCCESS);
 }
