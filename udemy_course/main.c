@@ -77,6 +77,16 @@ void Destroy(node *p) {
   }
 }
 
+node *RecursiveInsert(node *p, int data) {
+  node *tmp = NULL;
+  if (p == NULL) {
+    tmp = malloc(sizeof(node));
+    tmp->data = data;
+    tmp->lchild = tmp->rchild = NULL;
+  }
+  return (p);
+}
+
 int main(void) {
   // code it here
   Insert(10);
