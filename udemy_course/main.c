@@ -84,7 +84,6 @@ int main(void) {
   Insert(20);
   Insert(8);
   Insert(30);
-
   Inorder(root);
 
   Destroy(root);
