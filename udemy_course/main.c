@@ -129,6 +129,18 @@ node *Delete(node *p, int key) {
   return (p);
 }
 
+// Function to count the num of nodes in our tree
+
+int node_count(node *ptr) {
+  int x, y;
+  if (ptr != NULL) {
+    x = node_count(ptr->lchild);
+    y = node_count(ptr->rchild);
+    return (x + y + 1);
+  }
+  return (0);
+}
+
 int main(void) {
   // code it here
   // Insert(10);
@@ -148,12 +160,10 @@ int main(void) {
   else
     printf("Node not found!!!\n");
 
+  printf("The num of nodes in our tree before del is %d\n", node_count(root));
   Delete(root, 5);
 
-  if (Search(5))
-    printf("The node is found!!!\n");
-  else
-    printf("Node not found!!!\n");
+  printf("The num of nodes in our tree after del is %d\n", node_count(root));
   Destroy(root);
   return (EXIT_SUCCESS);
 }
