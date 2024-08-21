@@ -158,6 +158,17 @@ int calc_height(node *ptr) {
     return (y + 1);
 }
 
+// Add an interface to caluclate the number of leaf nodes in our TREE
+
+int countLeaves(node *ptr) {
+  if (ptr == NULL)
+    return (0);
+
+  if (ptr->lchild == NULL && ptr->rchild == NULL)
+    return (1);
+  return (countLeaves(ptr->lchild) + countLeaves(ptr->rchild));
+}
+
 int main(void) {
   // code it here
   // Insert(10);
@@ -172,6 +183,7 @@ int main(void) {
   RecursiveInsert(root, 30);
   RecursiveInsert(root, 19);
   RecursiveInsert(root, 28);
+  RecursiveInsert(root, 37);
   Inorder(root);
 
   if (Search(5))
@@ -185,6 +197,8 @@ int main(void) {
   printf("The num of nodes in our tree after del is %d\n", node_count(root));
 
   printf("The height of our TREE is %d\n", calc_height(root));
+
+  printf("The number of leaves in our TREE is %d\n", countLeaves(root));
 
   Destroy(root);
   return (EXIT_SUCCESS);
