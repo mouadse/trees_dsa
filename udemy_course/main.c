@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <threads.h>
 #include <unistd.h>
 
 typedef struct t_node {
@@ -93,18 +94,23 @@ node *RecursiveInsert(node *p, int data) {
 // adding delete node funtions to our code
 
 node *Delete(node *p, int key) {
-  node *tmp = NULL;
+  node *tmp;
   if (p == NULL)
     return (NULL);
 
-  if (p->data < key)
+  if (key < p->data)
     p->lchild = Delete(p->lchild, key);
-  else if (p->data > key)
+  else if (key > p->data)
     p->rchild = Delete(p->rchild, key);
   else {
     // Case 1: Node with only one child or no child !!!
     if (p->lchild == NULL) {
       tmp = p->rchild;
+      free(p);
+      p = NULL;
+      return (tmp);
+    } else if (p->rchild == NULL) {
+      tmp = p->lchild;
       free(p);
       return (tmp);
     }
@@ -136,6 +142,13 @@ int main(void) {
   RecursiveInsert(root, 8);
   RecursiveInsert(root, 30);
   Inorder(root);
+
+  if (Search(5))
+    printf("The node is found!!!\n");
+  else
+    printf("Node not found!!!\n");
+
+  Delete(root, 5);
 
   if (Search(5))
     printf("The node is found!!!\n");
