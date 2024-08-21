@@ -191,10 +191,10 @@ int main(void) {
   else
     printf("Node not found!!!\n");
 
-  printf("The num of nodes in our tree before del is %d\n", node_count(root));
-  Delete(root, 5);
-
-  printf("The num of nodes in our tree after del is %d\n", node_count(root));
+  // printf("The num of nodes in our tree before del is %d\n",
+  // node_count(root)); Delete(root, 5);
+  //
+  // printf("The num of nodes in our tree after del is %d\n", node_count(root));
 
   printf("The height of our TREE is %d\n", calc_height(root));
 
