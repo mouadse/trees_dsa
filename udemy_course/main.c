@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/types.h>
-#include <threads.h>
 #include <unistd.h>
 
 typedef struct t_node {
@@ -83,19 +81,66 @@ node *RecursiveInsert(node *p, int data) {
     tmp = malloc(sizeof(node));
     tmp->data = data;
     tmp->lchild = tmp->rchild = NULL;
+    return (tmp);
   }
+  if (data < p->data)
+    p->lchild = RecursiveInsert(p->lchild, data);
+  else if (data > p->data)
+    p->rchild = RecursiveInsert(p->rchild, data);
+  return (p);
+}
+
+// adding delete node funtions to our code
+
+node *Delete(node *p, int key) {
+  node *tmp = NULL;
+  if (p == NULL)
+    return (NULL);
+
+  if (p->data < key)
+    p->lchild = Delete(p->lchild, key);
+  else if (p->data > key)
+    p->rchild = Delete(p->rchild, key);
+  else {
+    // Case 1: Node with only one child or no child !!!
+    if (p->lchild == NULL) {
+      tmp = p->rchild;
+      free(p);
+      return (tmp);
+    }
+    // Case 2: Node with two children
+    // Find the in-order successor (Smallest in the right subtree)
+    tmp = p->rchild;
+    while (tmp && tmp->lchild != NULL) {
+      tmp = tmp->lchild;
+    }
+    p->data = tmp->data;
+
+    // time to delete the in-order successor
+    p->rchild = Delete(p->rchild, tmp->data);
+  }
+
   return (p);
 }
 
 int main(void) {
   // code it here
-  Insert(10);
-  Insert(5);
-  Insert(20);
-  Insert(8);
-  Insert(30);
+  // Insert(10);
+  // Insert(5);
+  // Insert(20);
+  // Insert(8);
+  // Insert(30);
+  root = RecursiveInsert(root, 10);
+  RecursiveInsert(root, 5);
+  RecursiveInsert(root, 20);
+  RecursiveInsert(root, 8);
+  RecursiveInsert(root, 30);
   Inorder(root);
 
+  if (Search(5))
+    printf("The node is found!!!\n");
+  else
+    printf("Node not found!!!\n");
   Destroy(root);
   return (EXIT_SUCCESS);
 }
