@@ -141,6 +141,23 @@ int node_count(node *ptr) {
   return (0);
 }
 
+// Time to calculate the height for our tree
+
+int calc_height(node *ptr) {
+  int x, y;
+  x = y = 0;
+
+  if (!ptr)
+    return (0);
+
+  x = calc_height(ptr->lchild);
+  y = calc_height(ptr->rchild);
+  if (x > y)
+    return (x + 1);
+  else
+    return (y + 1);
+}
+
 int main(void) {
   // code it here
   // Insert(10);
@@ -153,6 +170,8 @@ int main(void) {
   RecursiveInsert(root, 20);
   RecursiveInsert(root, 8);
   RecursiveInsert(root, 30);
+  RecursiveInsert(root, 19);
+  RecursiveInsert(root, 28);
   Inorder(root);
 
   if (Search(5))
@@ -164,6 +183,9 @@ int main(void) {
   Delete(root, 5);
 
   printf("The num of nodes in our tree after del is %d\n", node_count(root));
+
+  printf("The height of our TREE is %d\n", calc_height(root));
+
   Destroy(root);
   return (EXIT_SUCCESS);
 }
